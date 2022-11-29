@@ -43,8 +43,10 @@ def close_db(exception):
 @app.route("/index") #rota principal
 def index():
     db().row_factory = sqlite3.Row
-    data = db().execute("SELECT * FROM receitas").fetchall() #retorna do DB todas as receitas
-
+    try:
+        data = db().execute("SELECT * FROM receitas").fetchall() #retorna do DB todas as receitas
+    except KeyError:
+        flash("Houve um erro, contate o suporte.", "warning")#informa em tela ao usuario que a operação teve um erro
     return render_template("index.html", datas=data)
 
 
@@ -59,10 +61,12 @@ def add_receita():
         HISTORIA = request.form["HISTORIA"]
         IMAGEM = request.form["IMAGEM"]
         VIDEO = request.form["VIDEO"]
-
-        db().execute("INSERT INTO receitas(NOME, TEMPO, INGREDIENTES, GUARNICAO, MODOPREPARO, HISTORIA, IMAGEM, VIDEO) values (?,?,?,?,?,?,?,?)", (NOME, TEMPO, INGREDIENTES, GUARNICAO, MODOPREPARO, HISTORIA, IMAGEM, VIDEO))
-        db().commit()#adiciona no banco de dados os dados fornecidos no formulario
-        flash("Receita cadastrada com sucesso!", "success")#informa em tela ao usuario que a operação foi efetuada com sucesso
+        try:
+            db().execute("INSERT INTO receitas(NOME, TEMPO, INGREDIENTES, GUARNICAO, MODOPREPARO, HISTORIA, IMAGEM, VIDEO) values (?,?,?,?,?,?,?,?)", (NOME, TEMPO, INGREDIENTES, GUARNICAO, MODOPREPARO, HISTORIA, IMAGEM, VIDEO))
+            db().commit()#adiciona no banco de dados os dados fornecidos no formulario
+            flash("Receita cadastrada com sucesso!", "success")#informa em tela ao usuario que a operação foi efetuada com sucesso
+        except KeyError:
+            flash("Houve um erro, contate o suporte.", "warning")#informa em tela ao usuario que a operação teve um erro
         return redirect(url_for("index"))
     return render_template("add_receita.html")
 
@@ -79,28 +83,44 @@ def editar_receita(id):
         IMAGEM = request.form["IMAGEM"]
         VIDEO = request.form["VIDEO"]
 
-        db().execute("UPDATE receitas SET NOME=?, TEMPO=?, INGREDIENTES=?, GUARNICAO=?, MODOPREPARO=?, HISTORIA=?, IMAGEM=?, VIDEO=? WHERE ID=?", (NOME, TEMPO, INGREDIENTES, GUARNICAO, MODOPREPARO, HISTORIA, IMAGEM, VIDEO, id))
-        db().commit()#executa o updade no banco de dados com as novas informações
-        flash("Dados de receita atualizada!", "success")#informa em tela ao usuario que a operação foi efetuada com sucesso
+        try:
+            db().execute("UPDATE receitas SET NOME=?, TEMPO=?, INGREDIENTES=?, GUARNICAO=?, MODOPREPARO=?, HISTORIA=?, IMAGEM=?, VIDEO=? WHERE ID=?", (NOME, TEMPO, INGREDIENTES, GUARNICAO, MODOPREPARO, HISTORIA, IMAGEM, VIDEO, id))
+            db().commit()#executa o updade no banco de dados com as novas informações
+            flash("Dados de receita atualizada!", "success")#informa em tela ao usuario que a operação foi efetuada com sucesso
+        except KeyError:
+            flash("Houve um erro, contate o suporte.", "warning")#informa em tela ao usuario que a operação teve um erro
+
         return redirect(url_for("index"))
 
-    db().row_factory = sqlite3.Row
-    data = db().execute("SELECT * FROM receitas WHERE ID = ?", (id,)).fetchone()
+    try:
+        db().row_factory = sqlite3.Row
+        data = db().execute("SELECT * FROM receitas WHERE ID = ?", (id,)).fetchone()
+    except KeyError:
+        flash("Houve um erro, contate o suporte.", "warning")  # informa em tela ao usuario que a operação teve um erro
+
     return render_template("editar_receita.html", datas=data)
 
 
 @app.route("/ver_receita/<string:id>", methods=["POST", "GET"])
 def ver_receita(id):
-    db().row_factory = sqlite3.Row
-    data = db().execute("SELECT * FROM receitas WHERE ID = ?", (id,)).fetchone()
+    try:
+        db().row_factory = sqlite3.Row
+        data = db().execute("SELECT * FROM receitas WHERE ID = ?", (id,)).fetchone()
+    except KeyError:
+        flash("Houve um erro, contate o suporte.", "warning")  # informa em tela ao usuario que a operação teve um erro
+
     return render_template("ver_receita.html", datas=data)
 
 
 @app.route("/deletar_receita/<string:id>", methods=["GET"])
 def deletar_receita(id):
-    db().execute("DELETE FROM receitas WHERE ID=?", (id,))
-    db().commit()
-    flash("Receita foi apagada!", "warning")
+    try:
+        db().execute("DELETE FROM receitas WHERE ID=?", (id,))
+        db().commit()
+        flash("Receita foi apagada!", "warning")
+    except KeyError:
+        flash("Houve um erro, contate o suporte.", "warning")  # informa em tela ao usuario que a operação teve um erro
+
     return redirect(url_for("index"))
 
 
