@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block body %}
+<p><img src="{{datas.IMAGEM}}" class="img-fluid" alt="{{datas.NOME}}"></p>
+   <h1>{{datas.NOME}}</h1>
+   <span class="glyphicon glyphicon-time" aria-hidden="true"></span><small>{{datas.TEMPO}}</small><br><br>
+<h6>INGREDIENTES</h6>
+<p style="white-space: pre-wrap;">{{datas.INGREDIENTES}}</p>
+<h6>GUARNIÇÃO</h6>
+<p style="white-space: pre-wrap;">{{datas.GUARNICAO}}</p>
+<h6>MODO DE PREPARO</h6>
+<p style="white-space: pre-wrap;">{{datas.MODOPREPARO}}</p>
+<h6>HISTÓRIA</h6>
+<p style="white-space: pre-wrap;">{{datas.HISTORIA}}</p>
+
+<br><br>
+<a href="{{url_for('editar_receita',id=datas.ID)}}" class="btn btn-warning">Editar receita</a>
+<a href="{{url_for('deletar_receita',id=datas.ID)}}" class="btn btn-danger" onclick="return confirm ('Tem certeza que deseja apagar?')">Deletar</a>
+   <hr><a href="{{ url_for('index') }}">Voltar</a>
+{% endblock %}

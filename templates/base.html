@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Trabalho 03 - UFSC">
+    <meta name="author" content="Ricardo Steigleder Flores Endres">
+    <meta name="generator" content="Hugo 0.84.0">
+    <title>UFSC - SISTEMA DE CADASTRO DE DRINKS - Trabalho 03</title>
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
+
+    <!-- Bootstrap core CSS -->
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+  </head>
+  <body>
+<header>
+  <div class="collapse bg-dark" id="navbarHeader">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 col-md-7 py-4">
+          <h4 class="text-white">Trabalho 03 para Universidade Federal de Santa Catarina</h4>
+          <p class="text-muted">
+              O Trabalho 03 consiste no desenvolvimento de um pequeno programa Web em Python.
+                O tema do trabalho é livre
+                O programa deve ser desenvolvido utilizando o framework Flask
+                Deve ser desenvolvida ao menos uma página dinâmica. Por página dinâmica, entende-se uma página Web que obtenha e exiba dados de um arquivo, banco de dados, ou outra fonte. Ou seja, as informações apresentadas na página não estão gravadas diretamente no html da página, mas são obtidos dinamicamente por meio de programação Python.
+                Algumas sugestões:
+                Reimplementar uma parte do Trabalho 2 para Web com uso do Flask
+                Carregar dados obtidos de um arquivo ou banco de dados em uma página Web
+          </p>
+        </div>
+        <div class="col-sm-4 offset-md-1 py-4">
+          <h4 class="text-white">Contact</h4>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-white">Follow on Twitter</a></li>
+            <li><a href="#" class="text-white">Like on Facebook</a></li>
+            <li><a href="#" class="text-white">Email me</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="navbar navbar-dark bg-dark shadow-sm">
+    <div class="container">
+      <a href="{{ url_for('index') }}" class="navbar-brand d-flex align-items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        <strong>Sistema de Cadastro de Drinks - UFSC</strong>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+</header>
+    <div class="container pt-3">
+        {% with messages=get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category,message in messages %}
+                    <div class="alert alert-{{category}}">{{message}}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        {% block body %}
+
+        {% endblock %}
+    </div>
+ </main>
+</body>
+<footer class="text-muted py-5">
+  <div class="container">
+    <p class="float-end mb-1">
+      <a href="#">Ir para o topo</a>
+    </p>
+    <p class="mb-1">Trabalho 03 - UFSC - Ricardo Steigleder Flores Endres</p>
+    <p class="mb-0">PYTHON(FLASK), SQLITE3, BOOTSTRAP.</p>
+  </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+</html>

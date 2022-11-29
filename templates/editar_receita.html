@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="row">
+    <div class="col-5 mx-auto">
+        <h3>Editar</h3><hr>
+        <form method="post" action="{{url_for('editar_receita',id=datas.ID)}}">
+
+           <div class="form-group">
+                <label>Nome do Drink</label>
+                <input type="text" name="NOME" required class="form-control"  value="{{datas.NOME}}">
+            </div>
+            <div class="form-group">
+                <label>Tempo de Preparo</label>
+                <select name="TEMPO" class="form-select" aria-label="Default select example" >
+                  <option value="{{datas.TEMPO}}" selected>{{datas.TEMPO}}</option>
+                  <option value="1 min">1 min</option>
+                  <option value="2 min">2 min</option>
+                  <option value="3 min">3 min</option>
+                  <option value="4 min">4 min</option>
+                  <option value="5 min">5 min</option>
+                  <option value="6 min">6 min</option>
+                  <option value="7 min">7 min</option>
+                  <option value="8 min">8 min</option>
+                  <option value="9 min">9 min</option>
+                  <option value="10 min">10 min</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>INGREDIENTES</label>
+                <textarea class="form-control" name="INGREDIENTES" id="exampleFormControlTextarea1" rows="5">{{datas.INGREDIENTES}}</textarea>
+            </div>
+            <div class="form-group">
+                <label>GUARNICAO</label>
+                <textarea class="form-control" name="GUARNICAO" id="exampleFormControlTextarea1" rows="5">{{datas.GUARNICAO}}</textarea>
+            </div>
+            <div class="form-group">
+                <label>MODOPREPARO</label>
+                <textarea class="form-control" name="MODOPREPARO" id="exampleFormControlTextarea1" rows="5">{{datas.MODOPREPARO}}</textarea>
+            </div>
+            <div class="form-group">
+                <label>HISTORIA</label>
+                <textarea class="form-control" name="HISTORIA" id="exampleFormControlTextarea1" rows="5">{{datas.HISTORIA}}</textarea>
+            </div>
+            <div class="form-group">
+                <label>Link da IMAGEM</label>
+                <input type="text" name="IMAGEM" required class="form-control" value="{{datas.IMAGEM}}">
+            </div>
+            <div class="form-group">
+                <label>Link do VIDEO</label>
+                <input type="text" name="VIDEO" required class="form-control" value="{{datas.VIDEO}}">
+            </div>
+        </br>
+            <input type="submit" value="Confirmar" class="btn btn-primary">
+        </form>
+           <hr><a href="{{url_for('ver_receita',id=datas.ID)}}">Voltar</a>
+    </div>
+</div>
+{% endblock %}
