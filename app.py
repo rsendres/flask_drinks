@@ -32,7 +32,7 @@ def db():
     return g.db
 
 
-@app.teardown_appcontext #fecha a conexão automaticamente toda vez que usuario terminar o serviçlo
+@app.teardown_appcontext #fecha a conexão automaticamente toda vez que usuario terminar o serviço
 def close_db(exception):
     # Fechar a conexão depois de cada request
     if 'db' in g:
@@ -40,17 +40,17 @@ def close_db(exception):
 
 
 @app.route("/")
-@app.route("/index")
+@app.route("/index") #rota principal
 def index():
     db().row_factory = sqlite3.Row
-    data = db().execute("SELECT * FROM receitas").fetchall()
+    data = db().execute("SELECT * FROM receitas").fetchall() #retorna do DB todas as receitas
 
     return render_template("index.html", datas=data)
 
 
-@app.route("/add_receita", methods=["POST", "GET"])
+@app.route("/add_receita", methods=["POST", "GET"])#rota para adicionar receita
 def add_receita():
-    if request.method == "POST":
+    if request.method == "POST": #tras do html o formulario
         NOME = request.form["NOME"]
         TEMPO = request.form["TEMPO"]
         INGREDIENTES = request.form["INGREDIENTES"]
@@ -61,13 +61,13 @@ def add_receita():
         VIDEO = request.form["VIDEO"]
 
         db().execute("INSERT INTO receitas(NOME, TEMPO, INGREDIENTES, GUARNICAO, MODOPREPARO, HISTORIA, IMAGEM, VIDEO) values (?,?,?,?,?,?,?,?)", (NOME, TEMPO, INGREDIENTES, GUARNICAO, MODOPREPARO, HISTORIA, IMAGEM, VIDEO))
-        db().commit()
-        flash("Receita cadastrada com sucesso!", "success")
+        db().commit()#adiciona no banco de dados os dados fornecidos no formulario
+        flash("Receita cadastrada com sucesso!", "success")#informa em tela ao usuario que a operação foi efetuada com sucesso
         return redirect(url_for("index"))
     return render_template("add_receita.html")
 
 
-@app.route("/editar_receita/<string:id>", methods=["POST", "GET"])
+@app.route("/editar_receita/<string:id>", methods=["POST", "GET"])#rota para edição de uma receita
 def editar_receita(id):
     if request.method == "POST":
         NOME = request.form["NOME"]
@@ -80,8 +80,8 @@ def editar_receita(id):
         VIDEO = request.form["VIDEO"]
 
         db().execute("UPDATE receitas SET NOME=?, TEMPO=?, INGREDIENTES=?, GUARNICAO=?, MODOPREPARO=?, HISTORIA=?, IMAGEM=?, VIDEO=? WHERE ID=?", (NOME, TEMPO, INGREDIENTES, GUARNICAO, MODOPREPARO, HISTORIA, IMAGEM, VIDEO, id))
-        db().commit()
-        flash("Dados de receita atualizada!", "success")
+        db().commit()#executa o updade no banco de dados com as novas informações
+        flash("Dados de receita atualizada!", "success")#informa em tela ao usuario que a operação foi efetuada com sucesso
         return redirect(url_for("index"))
 
     db().row_factory = sqlite3.Row
