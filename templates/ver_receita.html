@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 {% block body %}
-<p><img src="{{datas.IMAGEM}}" class="img-fluid" alt="{{datas.NOME}}"></p>
-   <h1>{{datas.NOME}}</h1>
-   <span class="glyphicon glyphicon-time" aria-hidden="true"></span><small>{{datas.TEMPO}}</small><br><br>
+<p>
+<div alt="Gin Tônica" class="c-page-banner c-page-banner--img" style="background-position: 50%;position: relative; height: 500px;background-size: cover;background-image: url({{datas.IMAGEM}});"></div></p>
+   <p><h1>{{datas.NOME}}</h1></p>
+   <p><i class="bi-alarm"></i> <small>{{datas.TEMPO}}</small></p><br>
+
 <h6>INGREDIENTES</h6>
 <p style="white-space: pre-wrap;">{{datas.INGREDIENTES}}</p>
 <h6>GUARNIÇÃO</h6>

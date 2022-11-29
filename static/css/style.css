@@ -1,14 +1,20 @@
+.card {
+    overflow: hidden;
+}
 .card img {
+    display: block;
+    min-height: 200px;
+    padding-right: 0px
+    padding-left: 0px
+    background-color: #000
     -o-object-fit: cover;
     object-fit: cover;
     height: 100%;
     width: 100%;
-    min-height:250px;
-    transition: 1s ease;
+    transition: all .2s ease-out
 }
-.card img:hover {
-    -webkit-transform: scale(0.9);
-    -ms-transform: scale(0.9);
-    transform: scale(0.9);
-    transition: 1s ease;
+.card:hover img {
+    opacity: .7;
+    transform: scale(1.1) rotate(2deg)
 }
+
